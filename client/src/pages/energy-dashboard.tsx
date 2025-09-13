@@ -43,6 +43,16 @@ export default function EnergyDashboard() {
     refetchInterval: 5 * 60 * 1000, // Refetch every 5 minutes
   });
 
+  // Debug logging
+  useEffect(() => {
+    console.log("🔄 Dashboard state:", {
+      isLoading,
+      hasError: !!error,
+      hasData: !!sheetData,
+      dataPreview: sheetData ? { fileDate: sheetData.fileDate, dataCount: sheetData.data?.length } : null
+    });
+  }, [sheetData, isLoading, error]);
+
   const isConsolidatoDate = (dateStr: string): boolean => {
     const date = new Date(dateStr.split('/').reverse().join('-'));
     const currentDate = new Date();
