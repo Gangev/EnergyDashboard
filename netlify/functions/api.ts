@@ -105,14 +105,21 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
   // Handle energy-data endpoint
   if (path.includes('energy-data') && httpMethod === 'GET') {
     try {
+      console.log('Fetching data from:', GOOGLE_SHEETS_URL);
       const response = await fetch(GOOGLE_SHEETS_URL);
+      console.log('Response status:', response.status);
 
       if (!response.ok) {
+        console.error('Response not OK:', response.status, response.statusText);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const csvText = await response.text();
+      console.log('CSV text length:', csvText.length);
+      console.log('CSV preview:', csvText.substring(0, 200));
+
       const parsedData = parseCSVData(csvText);
+      console.log('Parsed data:', { fileDate: parsedData.fileDate, dataCount: parsedData.data.length });
 
       return {
         statusCode: 200,
@@ -130,7 +137,10 @@ export const handler: Handler = async (event: HandlerEvent, context: HandlerCont
           ...headers,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ error: 'Failed to fetch energy data' }),
+        body: JSON.stringify({
+          error: 'Failed to fetch energy data',
+          details: error instanceof Error ? error.message : 'Unknown error'
+        }),
       };
     }
   }
