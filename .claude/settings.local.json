@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(set PORT=3000)",
+      "Bash(npx:*)",
+      "Bash(curl:*)",
+      "Bash(taskkill:*)",
+      "Bash('taskkill' '/F' '/PID' '1572')",
+      "Bash(powershell:*)",
+      "Bash(tree:*)",
+      "Bash(start http://localhost:5000)",
+      "Bash(tasklist:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
