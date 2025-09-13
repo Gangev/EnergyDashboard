@@ -72,8 +72,8 @@ function parseCSVData(csvText: string) {
 
     data.push({
       date: dateStr.trim(),
-      gas: parseNumber(consumptionStr), // consumption maps to gas
-      power: parseNumber(productionStr), // production maps to power
+      gas: parseNumber(productionStr), // production maps to gas
+      power: parseNumber(consumptionStr), // consumption maps to power
     });
   }
 
